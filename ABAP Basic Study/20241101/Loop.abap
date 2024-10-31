@@ -75,3 +75,40 @@ APPEND wa_employee TO it_employees.
 LOOP AT it_employees INTO wa_employee.
   WRITE: / 'Employee ID:', wa_employee-id, 'Name:', wa_employee-name.
 ENDLOOP.
+
+
+*&---------------------------------------------------------------------*
+*& Report ZTEST
+*&---------------------------------------------------------------------*
+*& 내부 테이블 활용
+*&---------------------------------------------------------------------*
+REPORT ZTEST.
+
+* ty_fruit 구조체 정의(name, color)
+TYPES: BEGIN OF ty_fruit,
+         name   TYPE string,
+         color  TYPE string,
+       END OF ty_fruit.
+
+DATA: it_fruits TYPE TABLE OF ty_fruit,
+      wa_fruit  TYPE ty_fruit.
+
+START-OF-SELECTION.
+
+* 데이터 채우기
+wa_fruit-name = 'Apple'.
+wa_fruit-color = 'Red'.
+APPEND wa_fruit TO it_fruits.
+
+wa_fruit-name = 'Banana'.
+wa_fruit-color = 'Yellow'.
+APPEND wa_fruit TO it_fruits.
+
+wa_fruit-name = 'Grape'.
+wa_fruit-color = 'Green'.
+APPEND wa_fruit TO it_fruits.
+
+* 내부 테이블 순회 및 출력
+LOOP AT it_fruits INTO wa_fruit.
+  WRITE: / 'Fruit Name:', wa_fruit-name, 'Color:', wa_fruit-color.
+ENDLOOP.
